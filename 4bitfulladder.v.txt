@@ -1,0 +1,57 @@
+
+module adder(a,b,cin,sum,carry);
+  input a,b,cin;
+  output sum,carry;
+  
+  assign sum=a^b^cin;
+  assign carry=a&b|b&cin|cin&a;
+endmodule
+
+module adder4bit(x,y,z,s,cout);
+  input [3:0]x,y;
+  input z;
+  output [3:0]s;
+  output cout;
+  wire w1,w2,w3;
+  adder a1(x[0],y[0],z,s[0],w1);
+  adder a2(x[1],y[1],w1,s[1],w2);
+  adder a3(x[2],y[2],w2,s[2],w3);
+  adder a4(x[3],y[3],w3,s[3],cout);
+endmodule
+
+
+module test();
+  reg [3:0]x,y;
+  reg z;
+  wire [3:0]s;
+  wire cout;
+  
+  adder4bit bit1(.*);
+  
+  initial begin
+    
+    x=4'b0011;
+    y=4'b1001;
+    z=1'b0;
+    #10;
+    
+    x=4'b1001;
+    y=4'b1001;
+    z=1'b1;
+    #10;
+    
+    x=4'b0011;
+    y=4'b1000;
+    z=1'b1;
+    #10;
+    
+  end
+  
+  initial begin
+    $dumpfile("dump.vcd");
+    $dumpvars(1);
+  end 
+endmodule
+              
+
+              
