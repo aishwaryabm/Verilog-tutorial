@@ -1,0 +1,57 @@
+module kmapequ(a,b,c,d,f);
+  input a,b,c,d;
+  output f;
+  
+  assign f=(~b&~d|~c&d|b&d);
+endmodule
+
+module kmapequ_test;
+  reg a,b,c,d;
+  wire f;
+  
+  kmapequ k1(.*);
+  initial begin 
+    
+    a=0;b=0;c=0;d=0;
+    #10;
+     a=0;b=0;c=0;d=1;
+    #10;
+     a=0;b=0;c=1;d=0;
+    #10;
+     a=0;b=0;c=1;d=1;
+    #10;
+     a=0;b=1;c=0;d=0;
+    #10;
+     a=0;b=1;c=0;d=1;
+    #10;
+     a=0;b=1;c=1;d=0;
+    #10;
+     a=0;b=1;c=1;d=1;
+    #10;
+     a=1;b=0;c=0;d=0;
+    #10;
+     a=1;b=0;c=0;d=1;
+    #10;
+     a=1;b=0;c=1;d=0;
+    #10;
+    a=1;b=0;c=1;d=1;
+    #10;
+     a=1;b=1;c=0;d=0;
+    #10;
+     a=1;b=1;c=0;d=1;
+    #10;
+     a=1;b=1;c=1;d=0;
+    #10;
+     a=1;b=1;c=1;d=1;
+    #10;
+  end
+  
+  initial begin 
+    $dumpfile("dump.vcd");
+    $dumpvars(1);
+  end
+  
+endmodule
+
+            
+            
